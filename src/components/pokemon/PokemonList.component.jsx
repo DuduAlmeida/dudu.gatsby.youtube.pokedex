@@ -30,23 +30,30 @@ const PokemonListComponent = () => {
 
   // #endregion Public Properties
 
-  // #region LifeCycle Events
+  // #region Public Methods
 
-  useEffect(async () => {
-
+  const fetchListPokemonsFromAPI = async () => {
     const res = await axios.get(url);
     setPokemonList(res.data['results']);
-    console.log(pokemonList, res);
-  }, []);
+  }
 
+  // #endregion Public Methods
 
-  // #endregion LifeCycle Events
+  // #region OnInit
+
+  fetchListPokemonsFromAPI();
+
+  // #endregion OnInit
 
   return (
     <div className="row">
       {
         pokemonList.map((pokemon, index) => {
-          return <PokemonCardComponent key={index}></PokemonCardComponent>
+          return <PokemonCardComponent
+            key={index}
+            name={pokemon.name}
+            url={pokemon.url}
+          ></PokemonCardComponent>
         })
       }
     </div>
